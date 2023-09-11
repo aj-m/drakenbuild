@@ -10,7 +10,7 @@ LDLIBS = $(shell pkg-config --libs gtk4)
 all : $(OUT_DIR)/$(NAME)
 
 $(OUT_DIR)/$(NAME) : $(SRC_DIR)/main.c
-	$(CC) $(CFLAGS) -o $@ $(SRC_DIR)/main.c $(LDLIBS)
+	$(CC) $(CFLAGS) -o $@ $(SRC_DIR)/gamedata.c $(SRC_DIR)/main.c $(LDLIBS)
 	#$(CC) -o $@ $(SRC_DIR)/main.c
 
 .PHONY : clean

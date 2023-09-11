@@ -1,6 +1,8 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
+#include "gamedata.h"
 
+/*
 struct BINheader {
 	char magic[4];    // fpk (unless it's a movie*uc.bin)
 	uint32_t entries; // number of files in archive
@@ -24,21 +26,22 @@ struct FPKarchive {
 	struct FPKheader header;
 	struct FPKentry  entries[0];
 };
+*/
 
 int printBINheader(FILE *fpk) {
-	struct BINheader header;
+	struct bin_header header;
 	fseek(fpk, 0, SEEK_SET);
-	fread(&header, sizeof(struct BINheader), 1, fpk);
+	fread(&header, sizeof(struct bin_header), 1, fpk);
 	return printf(
 		"magic: %s\nentries: %u\n",
-		header.magic, header.entries
+		header.magic, header.entries_n
 	);
 }
 
 int printFPKheader(FILE *fpk) {
-	struct FPKheader header;
+	struct fpk_header header;
 	fseek(fpk, 0, SEEK_SET);
-	fread(&header, sizeof(struct FPKheader), 1, fpk);
+	fread(&header, sizeof(struct fpk_header), 1, fpk);
 	return printf(
 		"flag: %u\nlzs_n: %u\nlzs_p: %u\nsize: %u\n",
 		header.flag, header.lzs_n, header.lzs_p, header.size
