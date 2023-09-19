@@ -3,18 +3,19 @@
 
 #include <stdint.h>
 
-struct bin_header {
-	char magic[4];       // usually will be "fpk\0" because that's not confusing
-	uint32_t entries_n;  // number of files in archive (maybe not? possibly have wrong offset)
+struct bin_index {
+	uint32_t entries;  // number of files in archive
+	uint32_t start;    // byte offset where file data starts
 };
 
 struct bin_entry {
-	uint32_t placeholder;
+	uint32_t offset;     // byte offset where entry data starts
+	uint32_t size;       // number of bytes in entry
 };
 
 struct bin_file {
-	struct bin_header header;
-	struct bin_entry  entries[0]; // it's a pointer to an array but this should simplify semantics
+	struct bin_index header;
+	struct bin_entry **entries; // it's a pointer to an array
 };
 
 struct fpk_header {
