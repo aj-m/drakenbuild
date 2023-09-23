@@ -3,3 +3,7 @@ disc/
 build/
 reference/
 
+# clangd config and cache
+compile_commands.json
+.cache/
+
